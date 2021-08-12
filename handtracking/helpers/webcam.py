@@ -3,8 +3,8 @@ import time
 import cv2 as cv
 
 
-def video(func, show_fps=False) -> None:
-    cap = cv.VideoCapture(0)
+def webcam(func, camera=0, show_fps=False) -> None:
+    cap = cv.VideoCapture(camera)
 
     # used to record the time when we processed last frame
     prev_frame_time = 0
