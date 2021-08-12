@@ -4,8 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+opencv-python = "*"
+mediapipe = "*"
 
 [dev-packages]
+sphinx = "*"
 
 [requires]
 python_version = "3.9"

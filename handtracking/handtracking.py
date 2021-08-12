@@ -1,34 +1,31 @@
-import cv2
-import mediapipe as mp
+from numpy import ndarray
 
-from handtracking.helpers.webcam import webcam
-
-mp_hands = mp.solutions.hands
-mp_draw = mp.solutions.drawing_utils
-
-hands = mp_hands.Hands()
+from helpers.using_hand_landmarks import using_hand_landmarks
+from helpers.mp_modules import mp_hands, mp_draw
+from helpers.webcam import webcam
 
 
-def bgr2rgb(image):
-    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+def draw_hand(image: ndarray, hand) -> None:
+    """
+    This is a process that modifies the image by drawing a network representing the input hand landmark.
 
-
-def using_hand_landmarks(image, func):
-    processed_hands = hands.process(bgr2rgb(image))
-    hand_landmarks = processed_hands.multi_hand_landmarks
-
-    if hand_landmarks:
-        for hand in hand_landmarks:
-            func(image, hand)
-
-
-def draw_hand(image, hand):
+    :param image: This input image as a numpy array.
+    :param hand: Landmark for a single hand.
+    :return: None.
+    """
     mp_draw.draw_landmarks(image, hand, mp_hands.HAND_CONNECTIONS)
 
 
 def dotted_hand(image):
+    """
+    This applies the draw_hand function to an image and the landmarks.
+
+    :param image: The image that you want the landmarks drawn on.
+    :return: None.
+    """
     using_hand_landmarks(image, draw_hand)
     return image
 
 
-webcam(dotted_hand, show_fps=True)
+if __name__ == "__main__":
+    webcam(dotted_hand, show_fps=True)

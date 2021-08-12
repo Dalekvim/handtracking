@@ -3,7 +3,15 @@ import time
 import cv2 as cv
 
 
-def webcam(func, camera=0, show_fps=False) -> None:
+def webcam(func=lambda image: image, camera=0, show_fps=False) -> None:
+    """
+    This a super handy function for modifying and displaying camera footage in real time.
+
+    :param func: The function to be applied on the image.
+    :param camera: The camera to be used as input source.
+    :param show_fps: This determines weather or not the frame rate should be displayed.
+    :return: None.
+    """
     cap = cv.VideoCapture(camera)
 
     # used to record the time when we processed last frame
